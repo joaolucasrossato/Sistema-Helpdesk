@@ -69,7 +69,7 @@ php artisan test
 
 ```bash
 # Clonar o repositório
-git clone git@github.com:seu-usuario/helpdesk.git
+https://github.com/joaolucasrossato/Sistema-Helpdesk.git
 cd helpdesk
 
 # Instalar dependências
@@ -127,18 +127,3 @@ Uma coleção Postman pronta para testes está disponível em [`docs/postman/API
 - **tickets** — chamados, relacionados a um usuário (autor) e uma categoria
 - **comments** — comentários vinculados a um chamado e um usuário
 - **histories** — histórico de alterações de status de cada chamado
-
-## Desafios e aprendizados
-
-Durante o desenvolvimento, alguns problemas reais foram identificados e corrigidos, o que reforçou o entendimento sobre o funcionamento interno do Laravel:
-
-- **Inconsistência de valores ENUM**: uso de valores de status/prioridade com capitalização diferente entre o Controller e as views causou erros de truncamento no MySQL. Isso reforçou a importância de centralizar esses valores (próximo passo: migrar para Enums do PHP 8.1+).
-- **Migrations não re-executadas**: edição de uma migration já executada não altera o banco automaticamente — foi necessário entender o ciclo de vida das migrations (`migrate:fresh` vs `migrate:rollback`).
-- **Colisão de nomes de rota**: rotas da API e da aplicação web usando o mesmo nome (`tickets.index`) causavam sobrescrita de uma pela outra — resolvido nomeando as rotas de API com prefixo (`api.tickets.*`).
-
-## Melhorias futuras
-
-- [ ] Migrar status e prioridade para Enums do PHP
-- [ ] Implementar autorização por papel (usuário comum vs técnico) com Policies
-- [ ] Adicionar gráficos ao Dashboard
-- [ ] Deploy em ambiente de produção
