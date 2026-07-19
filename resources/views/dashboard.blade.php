@@ -1,35 +1,50 @@
 @extends('layouts.app')
 
 @section('content')
+<h1 class="mb-4">Dashboard</h1>
 
-<div class="container">
-
-    <h1>Dashboard</h1>
-
-    <hr>
-
-    <div class="row">
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5>Categorias</h5>
-                    <h2>{{ \App\Models\Category::count() }}</h2>
-                </div>
-            </div>
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="stat-label">Total de Chamados</div>
+            <div class="stat-value">{{ $totalTickets }}</div>
         </div>
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5>Chamados</h5>
-                    <h2>{{ \App\Models\Ticket::count() }}</h2>
-                </div>
-            </div>
-        </div>
-
     </div>
 
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="stat-label">
+                <span class="status-badge status-aberto">Aberto</span>
+            </div>
+            <div class="stat-value">{{ $abertos }}</div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="stat-label">
+                <span class="status-badge status-em-andamento">Em andamento</span>
+            </div>
+            <div class="stat-value">{{ $emAndamento }}</div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="stat-label">
+                <span class="status-badge status-resolvido">Resolvido</span>
+            </div>
+            <div class="stat-value">{{ $resolvidos }}</div>
+        </div>
+    </div>
 </div>
 
+<div class="row g-3">
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="stat-label">Categorias</div>
+            <div class="stat-value">{{ $totalCategorias }}</div>
+        </div>
+    </div>
+</div>
 @endsection

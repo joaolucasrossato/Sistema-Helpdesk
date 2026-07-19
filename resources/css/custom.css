@@ -1,0 +1,163 @@
+:root {
+  --bg: #F7F8FA;
+  --surface: #FFFFFF;
+  --ink: #1B2430;
+  --ink-muted: #5B6472;
+  --border: #E3E6EA;
+  --accent: #2F6F63;
+  --accent-dark: #24544A;
+  --status-aberto: #C1440E;
+  --status-andamento: #B8860B;
+  --status-resolvido: #2F6F63;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4, .navbar-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.ticket-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  min-height: 100vh;
+  background: var(--ink);
+  color: #E3E6EA;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 1.5rem 1rem;
+}
+
+.sidebar .brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #fff;
+  margin-bottom: 2rem;
+  display: block;
+}
+
+.sidebar .nav-link {
+  color: #B8C0CC;
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+}
+
+.main-content {
+  margin-left: 240px;
+  padding: 2rem 2.5rem;
+}
+
+/* Cards do dashboard */
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+
+.stat-card .stat-label {
+  color: var(--ink-muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+}
+
+.stat-card .stat-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-top: 0.25rem;
+}
+
+/* Tabela de chamados */
+.ticket-table {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.ticket-table thead {
+  background: #FAFBFC;
+}
+
+.ticket-table th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-muted);
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+}
+
+.ticket-row {
+  border-left: 4px solid transparent;
+  transition: background 0.1s ease;
+}
+
+.ticket-row:hover {
+  background: #FAFBFC;
+}
+
+.priority-baixa { border-left-color: #9AA5B1; }
+.priority-media { border-left-color: var(--status-andamento); }
+.priority-alta  { border-left-color: var(--status-aberto); }
+
+/* Badges de status */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+}
+
+.status-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.status-aberto { background: #FCEEE8; color: var(--status-aberto); }
+.status-em-andamento { background: #FBF3DC; color: var(--status-andamento); }
+.status-resolvido { background: #E6F0EE; color: var(--status-resolvido); }
+
+/* Botões */
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+}
