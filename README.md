@@ -1,58 +1,144 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# HelpDesk — Sistema de Gerenciamento de Chamados
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema web para abertura, acompanhamento e resolução de chamados de suporte técnico, desenvolvido com Laravel. Projeto criado como portfólio para demonstrar habilidades em desenvolvimento back-end PHP/Laravel, modelagem de banco de dados relacional, autenticação, API REST e boas práticas de desenvolvimento.
 
-## About Laravel
+## Funcionalidades
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Chamados
+- Criação de chamados com título, descrição, categoria e prioridade (Baixa, Média, Alta)
+- Listagem com indicação visual de prioridade e status
+- Alteração de status (Aberto → Em andamento → Resolvido)
+- Visualização detalhada com histórico de comentários
+- Exclusão com confirmação
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Categorias
+- CRUD completo (criar, listar, editar, excluir)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Comentários
+- Sistema de comentários dentro de cada chamado, com autor e data
 
-## Learning Laravel
+### Histórico de alterações
+- Registro automático de mudanças de status, com autor e data/hora
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Dashboard
+- Cartões com total de chamados, e contagem por status (Aberto, Em andamento, Resolvido)
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Autenticação
+- Login, registro e gerenciamento de perfil (via Laravel Breeze)
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### API REST
+- Autenticação via token (Laravel Sanctum)
+- Endpoints para listar, criar, atualizar e excluir chamados via JSON
+- Testada e documentada com coleção Postman
 
-## Agentic Development
+## Tecnologias utilizadas
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+| Categoria | Tecnologia |
+|---|---|
+| Linguagem | PHP 8.4 |
+| Framework | Laravel 13 |
+| Banco de dados | MySQL |
+| Autenticação web | Laravel Breeze |
+| Autenticação API | Laravel Sanctum |
+| Front-end | Blade, Bootstrap 5, CSS customizado |
+| Testes | Pest PHP |
+| Versionamento | Git |
 
+## Testes automatizados
+
+O projeto conta com 35 testes automatizados (Pest), cobrindo:
+- Autenticação e gerenciamento de perfil
+- CRUD de chamados (criação, atualização de status, exclusão)
+- Comentários
+- Endpoints da API REST, incluindo casos de acesso não autenticado
+
+Para rodar os testes:
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+php artisan test
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## Instalação e execução local
 
-## Contributing
+### Pré-requisitos
+- PHP 8.4+
+- Composer
+- MySQL
+- Node.js e npm
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Passos
 
-## Code of Conduct
+```bash
+# Clonar o repositório
+git clone git@github.com:seu-usuario/helpdesk.git
+cd helpdesk
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Instalar dependências
+composer install
+npm install
 
-## Security Vulnerabilities
+# Configurar ambiente
+cp .env.example .env
+php artisan key:generate
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# Configurar as credenciais do banco no arquivo .env
+# DB_DATABASE=helpdesk
+# DB_USERNAME=root
+# DB_PASSWORD=
 
-## License
+# Rodar migrations e popular o banco com dados de exemplo
+php artisan migrate:fresh --seed
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Compilar os assets
+npm run build
+
+# Iniciar o servidor
+php artisan serve
+```
+
+Acesse `http://127.0.0.1:8000`
+
+### Credenciais de teste (criadas pelo Seeder)
+
+| Campo | Valor |
+|---|---|
+| E-mail | admin@helpdesk.com |
+| Senha | password |
+
+## Testando a API
+
+A API é autenticada via Bearer Token (Laravel Sanctum).
+
+| Método | Endpoint | Descrição | Autenticação |
+|---|---|---|---|
+| POST | `/api/login` | Login e geração de token | Não |
+| POST | `/api/logout` | Revoga o token atual | Sim |
+| GET | `/api/tickets` | Lista todos os chamados | Sim |
+| POST | `/api/tickets` | Cria um novo chamado | Sim |
+| GET | `/api/tickets/{id}` | Detalhe de um chamado | Sim |
+| PUT | `/api/tickets/{id}` | Atualiza um chamado | Sim |
+| DELETE | `/api/tickets/{id}` | Remove um chamado | Sim |
+
+Uma coleção Postman pronta para testes está disponível em [`docs/postman/API Helpdesk.postman_collection.json`](docs/postman/API%20Helpdesk.postman_collection.json). Importe no Postman, use o endpoint `/api/login` para gerar um token, e cole-o como Bearer Token nas demais requisições.
+
+## Estrutura do banco de dados
+
+- **users** — usuários do sistema
+- **categories** — categorias de chamado (ex: Erro Impressora, Erro no Sistema)
+- **tickets** — chamados, relacionados a um usuário (autor) e uma categoria
+- **comments** — comentários vinculados a um chamado e um usuário
+- **histories** — histórico de alterações de status de cada chamado
+
+## Desafios e aprendizados
+
+Durante o desenvolvimento, alguns problemas reais foram identificados e corrigidos, o que reforçou o entendimento sobre o funcionamento interno do Laravel:
+
+- **Inconsistência de valores ENUM**: uso de valores de status/prioridade com capitalização diferente entre o Controller e as views causou erros de truncamento no MySQL. Isso reforçou a importância de centralizar esses valores (próximo passo: migrar para Enums do PHP 8.1+).
+- **Migrations não re-executadas**: edição de uma migration já executada não altera o banco automaticamente — foi necessário entender o ciclo de vida das migrations (`migrate:fresh` vs `migrate:rollback`).
+- **Colisão de nomes de rota**: rotas da API e da aplicação web usando o mesmo nome (`tickets.index`) causavam sobrescrita de uma pela outra — resolvido nomeando as rotas de API com prefixo (`api.tickets.*`).
+
+## Melhorias futuras
+
+- [ ] Migrar status e prioridade para Enums do PHP
+- [ ] Implementar autorização por papel (usuário comum vs técnico) com Policies
+- [ ] Adicionar gráficos ao Dashboard
+- [ ] Deploy em ambiente de produção

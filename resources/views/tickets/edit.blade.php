@@ -32,9 +32,9 @@
         <div class="col-md-4 mb-3">
             <label class="form-label">Status</label>
             <select name="status" class="form-select">
-                <option value="aberto" {{ $ticket->status == 'aberto' ? 'selected' : '' }}>Aberto</option>
-                <option value="em_andamento" {{ $ticket->status == 'em_andamento' ? 'selected' : '' }}>Em andamento</option>
-                <option value="resolvido" {{ $ticket->status == 'resolvido' ? 'selected' : '' }}>Resolvido</option>
+                <option value="Aberto" {{ $ticket->status == 'Aberto' ? 'selected' : '' }}>Aberto</option>
+                <option value="Em andamento" {{ $ticket->status == 'Em andamento' ? 'selected' : '' }}>Em andamento</option>
+                <option value="Resolvido" {{ $ticket->status == 'Resolvido' ? 'selected' : '' }}>Resolvido</option>
             </select>
         </div>
 
