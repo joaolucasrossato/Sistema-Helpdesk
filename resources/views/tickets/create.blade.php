@@ -1,81 +1,49 @@
 @extends('layouts.app')
 
 @section('content')
+<h1 class="mb-4">Novo Chamado</h1>
 
-<div class="container">
+<form method="POST" action="{{ route('tickets.store') }}">
+    @csrf
 
-    <h2 class="mb-4">Novo Chamado</h2>
+    <div class="mb-3">
+        <label class="form-label">Título</label>
+        <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}">
+        @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
+    </div>
 
-    <form action="{{ route('tickets.store') }}" method="POST">
+    <div class="mb-3">
+        <label class="form-label">Descrição</label>
+        <textarea name="description" rows="4" class="form-control @error('description') is-invalid @enderror">{{ old('description') }}</textarea>
+        @error('description') <div class="invalid-feedback">{{ $message }}</div> @enderror
+    </div>
 
-        @csrf
-
-        <div class="mb-3">
-            <label class="form-label">Título</label>
-
-            <input
-                type="text"
-                name="title"
-                class="form-control"
-                required>
-        </div>
-
-        <div class="mb-3">
+    <div class="row">
+        <div class="col-md-6 mb-3">
             <label class="form-label">Categoria</label>
-
-            <select
-                name="category_id"
-                class="form-select"
-                required>
-
-                <option value="">Selecione...</option>
-
+            <select name="category_id" class="form-select @error('category_id') is-invalid @enderror">
+                <option value="">Selecione</option>
                 @foreach($categories as $category)
-
-                    <option value="{{ $category->id }}">
+                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
                         {{ $category->name }}
                     </option>
-
                 @endforeach
-
             </select>
-
+            @error('category_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
 
-        <div class="mb-3">
+        <div class="col-md-6 mb-3">
             <label class="form-label">Prioridade</label>
-
-            <select
-                name="priority"
-                class="form-select">
-
-                <option>Baixa</option>
-                <option>Média</option>
-                <option>Alta</option>
-
+            <select name="priority" class="form-select @error('priority') is-invalid @enderror">
+                <option value="baixa">Baixa</option>
+                <option value="media" selected>Média</option>
+                <option value="alta">Alta</option>
             </select>
-
+            @error('priority') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
+    </div>
 
-        <div class="mb-3">
-
-            <label class="form-label">Descrição</label>
-
-            <textarea
-                name="description"
-                rows="5"
-                class="form-control"></textarea>
-
-        </div>
-
-        <button class="btn btn-primary">
-
-            Abrir Chamado
-
-        </button>
-
-    </form>
-
-</div>
-
+    <button type="submit" class="btn btn-primary">Criar Chamado</button>
+    <a href="{{ route('tickets.index') }}" class="btn btn-secondary">Cancelar</a>
+</form>
 @endsection

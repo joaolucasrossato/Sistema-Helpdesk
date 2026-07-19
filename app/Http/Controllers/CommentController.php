@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -26,9 +28,18 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Ticket $ticket)
     {
-        //
+        $request->validate([
+            'message' => 'required',
+        ]);
+
+        $ticket->comments()->create([
+            'message' => $request->message,
+            'user_id' => Auth::id(),
+        ]);
+
+        return back()->with('success', 'Comentário adicionado!');
     }
 
     /**
