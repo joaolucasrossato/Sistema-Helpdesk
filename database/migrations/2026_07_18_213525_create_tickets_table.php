@@ -12,8 +12,39 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tickets', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+
+        $table->id();
+
+        $table->string('title');
+
+        $table->text('description');
+
+        $table->enum('priority', [
+            'Baixa',
+            'Média',
+            'Alta'
+        ]);
+
+        $table->enum('status', [
+            'Aberto',
+            'Em andamento',
+            'Resolvido'
+        ])->default('Aberto');
+
+        $table->foreignId('category_id')
+              ->constrained()
+              ->cascadeOnDelete();
+
+        $table->foreignId('user_id')
+              ->constrained()
+              ->cascadeOnDelete();
+
+        $table->foreignId('technician_id')
+              ->nullable()
+              ->constrained('users')
+              ->nullOnDelete();
+
+        $table->timestamps();
         });
     }
 
