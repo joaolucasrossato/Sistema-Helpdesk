@@ -12,7 +12,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --optimize-autoloader --no-interaction
 
 # Gera a chave da aplicação e otimiza configs no build
 RUN php artisan config:clear

@@ -48,18 +48,20 @@ class TicketSeeder extends Seeder
         foreach ($tickets as $data) {
             $category = $categories->firstWhere('name', $data['category']);
 
-            $ticket = Ticket::create([
-                'title' => $data['title'],
-                'description' => $data['description'],
-                'priority' => $data['priority'],
-                'status' => $data['status'],
-                'category_id' => $category->id,
-                'user_id' => $user->id,
-                'technician_id' => null,
-            ]);
+            $ticket = Ticket::firstOrCreate(
+                ['title' => $data['title']],
+                [
+                    'description' => $data['description'],
+                    'priority' => $data['priority'],
+                    'status' => $data['status'],
+                    'category_id' => $category->id,
+                    'user_id' => $user->id,
+                    'technician_id' => null,
+                ]
+            );
 
             // Adiciona um comentário de exemplo no chamado "Em andamento"
-            if ($data['status'] === 'Em andamento') {
+            if ($data['status'] === 'Em andamento' && $ticket->comments()->count() === 0) {
                 $ticket->comments()->create([
                     'user_id' => $user->id,
                     'message' => 'Já identificamos a causa, aguardando aprovação para aplicar a correção.',
@@ -67,7 +69,7 @@ class TicketSeeder extends Seeder
             }
 
             // Chamado resolvido ganha um "histórico" de comentário também
-            if ($data['status'] === 'Resolvido') {
+            if ($data['status'] === 'Resolvido' && $ticket->comments()->count() === 0) {
                 $ticket->comments()->create([
                     'user_id' => $user->id,
                     'message' => 'Problema resolvido, senha redefinida manualmente pelo suporte.',

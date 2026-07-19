@@ -9,11 +9,10 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@helpdesk.com',
-            'password' => bcrypt('password'),
-        ]);
+        User::firstOrCreate(
+    ['email' => 'admin@helpdesk.com'],
+    ['name' => 'Admin', 'password' => bcrypt('password')]
+);
 
         $this->call([
             CategorySeeder::class,
