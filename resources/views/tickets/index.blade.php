@@ -13,9 +13,9 @@
 <form method="GET" class="mb-3 d-flex gap-2">
     <select name="status" class="form-select" style="max-width: 220px;" onchange="this.form.submit()">
         <option value="">Todos os status</option>
-        <option value="aberto" {{ request('status') == 'aberto' ? 'selected' : '' }}>Aberto</option>
-        <option value="em_andamento" {{ request('status') == 'em_andamento' ? 'selected' : '' }}>Em andamento</option>
-        <option value="resolvido" {{ request('status') == 'resolvido' ? 'selected' : '' }}>Resolvido</option>
+        <option value="Aberto" {{ request('status') == 'Aberto' ? 'selected' : '' }}>Aberto</option>
+        <option value="Em andamento" {{ request('status') == 'Em andamento' ? 'selected' : '' }}>Em andamento</option>
+        <option value="Resolvido" {{ request('status') == 'Resolvido' ? 'selected' : '' }}>Resolvido</option>
     </select>
 </form>
 
@@ -44,7 +44,7 @@
                     ];
                 @endphp
                 <span class="badge {{ $statusColors[$ticket->status] ?? 'bg-secondary' }}">
-                    {{ str_replace('_', ' ', $ticket->status) }}
+                    {{ str_replace($ticket->status) }}
                 </span>
             </td>
             <td>{{ ucfirst($ticket->priority) }}</td>
