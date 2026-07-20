@@ -44,7 +44,7 @@
                     ];
                 @endphp
                 <span class="badge {{ $statusColors[$ticket->status] ?? 'bg-secondary' }}">
-                    {{ str_replace($ticket->status) }}
+                    {{ str_replace('_', ' ', $ticket->status) }}
                 </span>
             </td>
             <td>{{ ucfirst($ticket->priority) }}</td>
