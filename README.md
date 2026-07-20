@@ -2,11 +2,21 @@
 
 Sistema web para abertura, acompanhamento e resolução de chamados de suporte técnico, desenvolvido com Laravel. Projeto criado como portfólio para demonstrar habilidades em desenvolvimento back-end PHP/Laravel, modelagem de banco de dados relacional, autenticação, API REST e boas práticas de desenvolvimento.
 
+**Acesse o projeto:** https://sistema-helpdesk-bojc.onrender.com
+
+**Credenciais de teste:**
+| Campo | Valor |
+|---|---|
+| E-mail | admin@helpdesk.com |
+| Senha | password |
+
+> **Nota:** o projeto está hospedado no plano gratuito do Render, que hiberna após 15 minutos de inatividade. O primeiro acesso após um período ocioso pode levar até 50 segundos para carregar.
+
 ## Funcionalidades
 
 ### Chamados
 - Criação de chamados com título, descrição, categoria e prioridade (Baixa, Média, Alta)
-- Listagem com indicação visual de prioridade e status
+- Listagem com indicação visual de prioridade e status, e filtro por status
 - Alteração de status (Aberto → Em andamento → Resolvido)
 - Visualização detalhada com histórico de comentários
 - Exclusão com confirmação
@@ -17,11 +27,8 @@ Sistema web para abertura, acompanhamento e resolução de chamados de suporte t
 ### Comentários
 - Sistema de comentários dentro de cada chamado, com autor e data
 
-### Histórico de alterações
-- Registro automático de mudanças de status, com autor e data/hora
-
 ### Dashboard
-- Cartões com total de chamados, e contagem por status (Aberto, Em andamento, Resolvido)
+- Cartões com total de chamados e contagem por status (Aberto, Em andamento, Resolvido)
 
 ### Autenticação
 - Login, registro e gerenciamento de perfil (via Laravel Breeze)
@@ -37,11 +44,12 @@ Sistema web para abertura, acompanhamento e resolução de chamados de suporte t
 |---|---|
 | Linguagem | PHP 8.4 |
 | Framework | Laravel 13 |
-| Banco de dados | MySQL |
+| Banco de dados | MySQL (dev) / PostgreSQL (produção) |
 | Autenticação web | Laravel Breeze |
 | Autenticação API | Laravel Sanctum |
 | Front-end | Blade, Bootstrap 5, CSS customizado |
 | Testes | Pest PHP |
+| Deploy | Docker + Render |
 | Versionamento | Git |
 
 ## Testes automatizados
@@ -69,8 +77,8 @@ php artisan test
 
 ```bash
 # Clonar o repositório
-https://github.com/joaolucasrossato/Sistema-Helpdesk.git
-cd helpdesk
+git clone git@github.com:joaolucasrossato/Sistema-Helpdesk.git
+cd Sistema-Helpdesk
 
 # Instalar dependências
 composer install
@@ -81,6 +89,7 @@ cp .env.example .env
 php artisan key:generate
 
 # Configurar as credenciais do banco no arquivo .env
+# DB_CONNECTION=mysql
 # DB_DATABASE=helpdesk
 # DB_USERNAME=root
 # DB_PASSWORD=
@@ -89,7 +98,7 @@ php artisan key:generate
 php artisan migrate:fresh --seed
 
 # Compilar os assets
-npm run build
+npm run dev
 
 # Iniciar o servidor
 php artisan serve
@@ -126,4 +135,4 @@ Uma coleção Postman pronta para testes está disponível em [`docs/postman/API
 - **categories** — categorias de chamado (ex: Erro Impressora, Erro no Sistema)
 - **tickets** — chamados, relacionados a um usuário (autor) e uma categoria
 - **comments** — comentários vinculados a um chamado e um usuário
-- **histories** — histórico de alterações de status de cada chamado
+- **histories** — histórico de alterações de status de cada chamado (estrutura criada, lógica de registro em desenvolvimento)
